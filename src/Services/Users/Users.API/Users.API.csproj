@@ -9,6 +9,7 @@
 
     <ItemGroup>
         <PackageReference Include="AutoMapper" Version="12.0.1" />
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3"/>
     </ItemGroup>
 
@@ -17,6 +18,11 @@
       <ProjectReference Include="..\..\..\..\Models\Models.csproj" />
       <ProjectReference Include="..\..\..\Shared\Models\Models.csproj" />
       <ProjectReference Include="..\Users.Contract\Users.Contract.csproj" />
+      <ProjectReference Include="..\Users.Core\Users.Core.csproj" />
+      <ProjectReference Include="..\Users.Data.MemoryDB\Users.Data.MemoryDB.csproj" />
+      <ProjectReference Include="..\Users.Data\Users.Data.csproj" />
     </ItemGroup>
+
+
 
 </Project>

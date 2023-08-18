@@ -53,9 +53,9 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet]
-    public async IAsyncEnumerable<UserModel> GetUsers([FromQuery] int skip, [FromQuery] int count)
+    public async IAsyncEnumerable<UserModel> GetUsers([FromQuery] UserFilters filters)
     {
-        await foreach (var user in _service.ReadAsync(skip, count, _tokenMock))
+        await foreach (var user in _service.ReadAsync(filters.Skip, filters.Count, _tokenMock))
         {
             yield return _mapper.Map<UserModel>(user);
         }

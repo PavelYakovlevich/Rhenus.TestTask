@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Collections.Concurrent;
+using AutoMapper;
 using Users.Contract.Repositories;
 using Users.Data.Models;
 using Users.Domain.Models;
@@ -13,7 +14,7 @@ public class InMemoryUserRepository : IUserRepository
     public InMemoryUserRepository(IMapper mapper)
     {
         _mapper = mapper;
-        _storage = new SortedDictionary<Guid, UserDbModel>();
+        _storage = new ConcurrentDictionary<Guid, UserDbModel>();
     }
     
     public async IAsyncEnumerable<User> ReadAsync(int skip, int count, CancellationToken? token)
