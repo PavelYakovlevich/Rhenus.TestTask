@@ -4,11 +4,11 @@ namespace Users.Contract.Repositories;
 
 public interface IUserRepository
 {
-    IAsyncEnumerable<User> ReadAsync(int skip, int count);
+    IAsyncEnumerable<User> ReadAsync(int skip, int count, CancellationToken? token);
 
-    Task DeleteAsync(Guid id);
+    Task DeleteAsync(Guid id, CancellationToken? token);
 
-    Task UpdateAsync(Guid id, User user);
+    Task<bool> UpdateAsync(Guid id, User user, CancellationToken? token);
 
-    Task CreateAsync(User user);
+    Task<bool> CreateAsync(User user, CancellationToken? token);
 }

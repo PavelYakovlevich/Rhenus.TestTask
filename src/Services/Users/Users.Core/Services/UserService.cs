@@ -1,10 +1,18 @@
-﻿using Users.Contract.Services;
+﻿using Users.Contract.Repositories;
+using Users.Contract.Services;
 using Users.Domain.Models;
 
 namespace Users.Core.Services;
 
 public class UserService : IUserService
 {
+    private readonly IUserRepository _repository;
+
+    public UserService(IUserRepository repository)
+    {
+        _repository = repository;
+    }
+    
     public IAsyncEnumerable<User> ReadAsync(int skip, int count)
     {
         throw new NotImplementedException();
