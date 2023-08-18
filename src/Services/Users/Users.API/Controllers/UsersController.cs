@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc;
+using Models.Users;
 
 namespace ManagementApp.API.Controllers;
 
@@ -7,7 +9,7 @@ namespace ManagementApp.API.Controllers;
 public class UsersController : ControllerBase
 {
     [HttpPost]
-    public async Task<Guid> CreateUser()
+    public async Task<IActionResult> CreateUser(UserModel user)
     {
         throw new NotImplementedException();
     }
@@ -19,7 +21,7 @@ public class UsersController : ControllerBase
     }
     
     [HttpPut]
-    public async Task<IActionResult> UpdateUser(Guid id)
+    public async Task<IActionResult> UpdateUser([Required] Guid id, UserModel model)
     {
         throw new NotImplementedException();
     }
