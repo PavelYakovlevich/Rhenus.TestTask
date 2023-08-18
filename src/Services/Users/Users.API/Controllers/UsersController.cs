@@ -25,4 +25,10 @@ public class UsersController : ControllerBase
     {
         throw new NotImplementedException();
     }
+
+    [HttpGet]
+    public IAsyncEnumerable<UserModel> GetUsers([FromQuery] int skip, [FromQuery] int count)
+    {
+        throw new NotImplementedException();
+    }
 }
