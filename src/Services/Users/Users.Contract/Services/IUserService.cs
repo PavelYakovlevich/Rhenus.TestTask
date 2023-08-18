@@ -4,11 +4,11 @@ namespace Users.Contract.Services;
 
 public interface IUserService
 {
-    IAsyncEnumerable<User> ReadAsync(int skip, int count);
+    IAsyncEnumerable<User> ReadAsync(int skip, int count, CancellationToken token);
 
-    Task DeleteAsync(Guid id);
+    Task DeleteAsync(Guid id, CancellationToken token);
 
-    Task UpdateAsync(Guid id, User user);
+    Task UpdateAsync(Guid id, User user, CancellationToken token);
 
-    Task CreateAsync(User user);
+    Task<Guid> CreateAsync(User user, CancellationToken token);
 }

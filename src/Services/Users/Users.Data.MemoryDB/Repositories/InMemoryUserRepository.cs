@@ -27,7 +27,7 @@ public class InMemoryUserRepository : IUserRepository
         }
     }
 
-    public Task DeleteAsync(Guid id, CancellationToken? token)
+    public Task<bool> DeleteAsync(Guid id, CancellationToken? token)
     {
         return Task.FromResult(_storage.Remove(id));
     }

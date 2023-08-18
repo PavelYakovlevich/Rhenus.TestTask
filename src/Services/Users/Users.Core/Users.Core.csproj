@@ -8,6 +8,7 @@
 
 
     <ItemGroup>
+      <ProjectReference Include="..\..\..\Shared\Exceptions\Exceptions.csproj" />
       <ProjectReference Include="..\Users.Contract\Users.Contract.csproj" />
       <ProjectReference Include="..\Users.Domain\Users.Domain.csproj" />
     </ItemGroup>

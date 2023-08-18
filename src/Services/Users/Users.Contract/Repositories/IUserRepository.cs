@@ -6,7 +6,7 @@ public interface IUserRepository
 {
     IAsyncEnumerable<User> ReadAsync(int skip, int count, CancellationToken? token);
 
-    Task DeleteAsync(Guid id, CancellationToken? token);
+    Task<bool> DeleteAsync(Guid id, CancellationToken? token);
 
     Task<bool> UpdateAsync(Guid id, User user, CancellationToken? token);
 

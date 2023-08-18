@@ -1,4 +1,5 @@
-﻿using Users.Contract.Repositories;
+﻿using Exceptions;
+using Users.Contract.Repositories;
 using Users.Contract.Services;
 using Users.Domain.Models;
 
@@ -13,23 +14,33 @@ public class UserService : IUserService
         _repository = repository;
     }
     
-    public IAsyncEnumerable<User> ReadAsync(int skip, int count)
+    public IAsyncEnumerable<User> ReadAsync(int skip, int count, CancellationToken token)
     {
-        throw new NotImplementedException();
+        return _repository.ReadAsync(skip, count, token);
     }
 
-    public Task DeleteAsync(Guid id)
+    public async Task DeleteAsync(Guid id, CancellationToken token)
     {
-        throw new NotImplementedException();
+        if (!await _repository.DeleteAsync(id, token))
+        {
+            throw new NotFoundException($"User with id {id} was not found");
+        }
     }
 
-    public Task UpdateAsync(Guid id, User user)
+    public async Task UpdateAsync(Guid id, User user, CancellationToken token)
     {
-        throw new NotImplementedException();
+        if (!await _repository.UpdateAsync(id, user, token))
+        {
+            throw new NotFoundException($"User with id {id} was not found");
+        }
     }
 
-    public Task CreateAsync(User user)
+    public async Task<Guid> CreateAsync(User user, CancellationToken token)
     {
-        throw new NotImplementedException();
+        user.Id = Guid.NewGuid();
+        
+        await _repository.CreateAsync(user, token);
+
+        return user.Id;
     }
 }
