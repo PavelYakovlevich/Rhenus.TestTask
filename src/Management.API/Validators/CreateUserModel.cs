@@ -1,13 +1,13 @@
 ﻿using FluentValidation;
-using Models.Users;
+using Models.Account;
 
 namespace ManagementApp.API.Validators;
 
-public class CreateUserModelValidator : AbstractValidator<CreateUserModel>
+public class CreateAccountModelValidator : AbstractValidator<AccountCreationModel>
 {
-    public CreateUserModelValidator()
+    public CreateAccountModelValidator()
     {
-        RuleFor(user => user.Email).EmailAddress();
-        RuleFor(user => user.Password).NotEmpty();
+        RuleFor(account => account.Email).EmailAddress();
+        RuleFor(account => account.Password).NotEmpty();
     }
 }

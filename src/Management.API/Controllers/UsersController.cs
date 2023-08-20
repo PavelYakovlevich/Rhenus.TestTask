@@ -1,63 +1,38 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Accounts.Domain.Models;
+using Auth.Contract.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Models.Users;
-using Users.Contract.Services;
-using CreateUserModel = Models.Users.CreateUserModel;
+using Models.Account;
 
 namespace ManagementApp.API.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("auth")]
 public class UsersController : ControllerBase
 {
-    private readonly IUserService _service;
+    private readonly IAuthenticationService _service;
     private readonly IMapper _mapper;
-    private readonly CancellationToken _tokenMock;
 
-    public UsersController(IUserService service, IMapper mapper)
+    public UsersController(IAuthenticationService service, IMapper mapper)
     {
         _service = service;
         _mapper = mapper;
-
-        using var tokenSource = new CancellationTokenSource();
-        _tokenMock = tokenSource.Token;
     }
     
-    [HttpPost]
-    public async Task<IActionResult> CreateUser([FromBody] CreateUserModel user)
+    [HttpPost("registration")]
+    public async Task<IActionResult> Register([FromBody] AccountCreationModel user)
     {
-        var model = _mapper.Map<Users.Domain.Models.CreateUserModel>(user);
+        var model = _mapper.Map<AccountRegistrationModel>(user);
 
-        var id = await _service.CreateAsync(model, _tokenMock);
+        await _service.RegisterAsync(model);
         
-        return CreatedAtAction(nameof(CreateUser), id);
+        return CreatedAtAction(nameof(Register), null);
     }
     
-    [HttpDelete]
-    public async Task<IActionResult> DeleteUser(Guid id)
+    [HttpPost("login")]
+    public async Task<IActionResult> Login([FromBody] LoginModel user)
     {
-        await _service.DeleteAsync(id, _tokenMock);
-
-        return NoContent();
-    }
-    
-    [HttpPut]
-    public async Task<IActionResult> UpdateUser([Required] Guid id, UserModel user)
-    {
-        var model = _mapper.Map<Users.Domain.Models.UserModel>(user);
-        
-        await _service.UpdateAsync(id, model, _tokenMock);
-
-        return NoContent();
+        throw new NotImplementedException();
     }
 
-    [HttpGet]
-    public async IAsyncEnumerable<UserModel> GetUsers([FromQuery] UserFilters filters)
-    {
-        await foreach (var user in _service.ReadAsync(filters.Skip, filters.Count, _tokenMock))
-        {
-            yield return _mapper.Map<UserModel>(user);
-        }
-    }
 }

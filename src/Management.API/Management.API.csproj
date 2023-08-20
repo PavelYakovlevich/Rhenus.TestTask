@@ -22,9 +22,14 @@
 
 
     <ItemGroup>
-      <ProjectReference Include="..\Services\Users\Users.Contract\Users.Contract.csproj" />
-      <ProjectReference Include="..\Services\Users\Users.Core\Users.Core.csproj" />
-      <ProjectReference Include="..\Services\Users\Users.Data\Users.Data.csproj" />
+      <ProjectReference Include="..\Services\Accounts\Accounts.Contract\Accounts.Contract.csproj" />
+      <ProjectReference Include="..\Services\Accounts\Accounts.Core\Accounts.Core.csproj" />
+      <ProjectReference Include="..\Services\Accounts\Accounts.Data\Accounts.Data.csproj" />
+      <ProjectReference Include="..\Services\Accounts\Accounts.Domain\Accounts.Domain.csproj" />
+      <ProjectReference Include="..\Services\Auth\Auth.Contract\Auth.Contract.csproj" />
+      <ProjectReference Include="..\Services\Users\Accounts.Contract\Accounts.Contract.csproj" />
+      <ProjectReference Include="..\Services\Users\Accounts.Core\Accounts.Core.csproj" />
+      <ProjectReference Include="..\Services\Users\Accounts.Data\Accounts.Data.csproj" />
       <ProjectReference Include="..\Shared\Models\Models.csproj" />
     </ItemGroup>
     

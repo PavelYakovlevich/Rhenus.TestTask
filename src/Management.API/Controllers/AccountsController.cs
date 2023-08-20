@@ -1,0 +1,50 @@
+﻿using System.ComponentModel.DataAnnotations;
+using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Accounts.Contract.Services;
+using Accounts.Domain.Models;
+using Models.Account;
+using AccountModel = Accounts.Domain.Models.AccountModel;
+
+namespace ManagementApp.API.Controllers;
+
+[ApiController]
+[Route("[controller]")]
+public class AccountsController : ControllerBase
+{
+    private readonly IAccountService _service;
+    private readonly IMapper _mapper;
+
+    public AccountsController(IAccountService service, IMapper mapper)
+    {
+        _service = service;
+        _mapper = mapper;
+    }
+    
+    [HttpDelete]
+    public async Task<IActionResult> DeleteUser(Guid id)
+    {
+        await _service.DeleteAsync(id);
+
+        return NoContent();
+    }
+    
+    [HttpPut]
+    public async Task<IActionResult> UpdateUser([Required] Guid id, Models.Account.AccountModel user)
+    {
+        var model = _mapper.Map<AccountModel>(user);
+        
+        await _service.UpdateAsync(id, model);
+
+        return NoContent();
+    }
+
+    [HttpGet]
+    public async IAsyncEnumerable<Models.Account.AccountModel> GetUsers([FromQuery] AccountFilters filters)
+    {
+        await foreach (var user in _service.ReadAsync(filters.Skip, filters.Count))
+        {
+            yield return _mapper.Map<Models.Account.AccountModel>(user);
+        }
+    }
+}

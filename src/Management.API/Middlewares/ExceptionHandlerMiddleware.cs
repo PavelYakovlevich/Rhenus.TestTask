@@ -26,7 +26,21 @@ internal class ExceptionHandlerMiddleware
                 StatusCodes.Status404NotFound,
                 "Not found");
         }
-        catch (Exception exception)
+        catch (AlreadyExistsException exception)
+        {
+            await HandleException(httpContext,
+                exception,
+                StatusCodes.Status400BadRequest,
+                "Bad request");
+        }
+        catch (WrongCredentialsException exception)
+        {
+            await HandleException(httpContext,
+                exception,
+                StatusCodes.Status401Unauthorized,
+                "Unauthorized");
+        }
+        catch (Exception exception) 
         {
             await HandleException(httpContext,
                 exception,

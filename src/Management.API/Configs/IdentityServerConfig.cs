@@ -1,4 +1,5 @@
-﻿using IdentityServer4.Models;
+﻿using IdentityServer4;
+using IdentityServer4.Models;
 
 namespace ManagementApp.API.Configs;
 
@@ -20,14 +21,29 @@ public static class IdentityServerConfig
             new Client
             {
                 ClientId = "frontend",
-                ClientName = "Frontend",
+                ClientSecrets = { new Secret("secret".Sha256()) },
 
                 AllowedGrantTypes = GrantTypes.Code,
-                
-                // For debug only. Must be stored in a secured storage
-                ClientSecrets = { new Secret("511536EF-F270-4058-80CA-1C89C192F69A".Sha256()) },
+            
+                RedirectUris = { "https://localhost:7296/signin-oidc" },
 
-                AllowedScopes = { "managementAPI" }
+                PostLogoutRedirectUris = { "https://localhost:7296/signout-callback-oidc" },
+
+                AllowedScopes = new List<string>
+                {
+                    IdentityServerConstants.StandardScopes.OpenId,
+                    IdentityServerConstants.StandardScopes.Profile
+                }
             }
+        };
+    
+    public static IEnumerable<ApiScope> Scopes => new []
+        {
+            new ApiScope("openid"),
+            new ApiScope("profile"),
+            new ApiScope("email"),
+            new ApiScope("read"),
+            new ApiScope("write"),
+            new ApiScope("identity-server-demo-api")
         };
 }

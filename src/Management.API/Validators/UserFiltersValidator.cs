@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
-using Models.Users;
+using Models.Account;
 
 namespace ManagementApp.API.Validators;
 
-public class UserFiltersValidator : AbstractValidator<UserFilters>
+public class AccountFiltersValidator : AbstractValidator<AccountFilters>
 {
-    public UserFiltersValidator()
+    public AccountFiltersValidator()
     {
         RuleFor(filters => filters.Count).GreaterThan(0)
             .WithMessage("count must be greater than 0");
