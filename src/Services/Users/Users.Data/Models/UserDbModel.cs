@@ -1,9 +1,9 @@
-﻿namespace Users.Data.Models;
+﻿using Microsoft.AspNetCore.Identity;
 
-public class UserDbModel
+namespace Users.Data.Models;
+
+public class UserDbModel : IdentityUser<Guid>
 {
-    public Guid Id { get; set; }
-
     public string Name { get; set; }
 
     public string LastName { get; set; }

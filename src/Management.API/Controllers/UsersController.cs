@@ -25,7 +25,7 @@ public class UsersController : ControllerBase
     }
     
     [HttpPost]
-    public async Task<IActionResult> CreateUser(CreateUserModel user)
+    public async Task<IActionResult> CreateUser([FromBody] CreateUserModel user)
     {
         var model = _mapper.Map<Users.Domain.Models.CreateUserModel>(user);
 
@@ -43,7 +43,7 @@ public class UsersController : ControllerBase
     }
     
     [HttpPut]
-    public async Task<IActionResult> UpdateUser([Required] Guid id, Models.Users.UserModel user)
+    public async Task<IActionResult> UpdateUser([Required] Guid id, UserModel user)
     {
         var model = _mapper.Map<Users.Domain.Models.UserModel>(user);
         
@@ -53,11 +53,11 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet]
-    public async IAsyncEnumerable<Models.Users.UserModel> GetUsers([FromQuery] UserFilters filters)
+    public async IAsyncEnumerable<UserModel> GetUsers([FromQuery] UserFilters filters)
     {
         await foreach (var user in _service.ReadAsync(filters.Skip, filters.Count, _tokenMock))
         {
-            yield return _mapper.Map<Models.Users.UserModel>(user);
+            yield return _mapper.Map<UserModel>(user);
         }
     }
 }

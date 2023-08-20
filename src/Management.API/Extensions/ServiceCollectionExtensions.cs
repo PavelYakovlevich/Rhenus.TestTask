@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ManagementApp.API.Configs;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Users.Contract.Repositories;
 using Users.Contract.Services;
 using Users.Core.Services;
@@ -23,7 +25,7 @@ public static class ServiceCollectionExtensions
             options.UseInMemoryDatabase("ManagementApp");
         });
         
-        return collection.AddSingleton<IUserRepository, UserRepository>();
+        return collection.AddScoped<IUserRepository, UserRepository>();
     }
 
     public static IServiceCollection SetupMapper(this IServiceCollection collection)
@@ -33,5 +35,20 @@ public static class ServiceCollectionExtensions
             config.CreateMap<UserModel, Models.Users.UserModel>().ReverseMap();
             config.CreateMap<UserModel, UserDbModel>().ReverseMap();
         });
+    }
+
+    public static IServiceCollection SetupAuthentication(this IServiceCollection collection)
+    {
+        collection.AddIdentity<UserDbModel, IdentityRole<Guid>>()
+            .AddEntityFrameworkStores<AppDbContext>()
+            .AddDefaultTokenProviders();
+
+        collection.AddIdentityServer()
+            .AddInMemoryIdentityResources(IdentityServerConfig.IdentityResources)
+            .AddInMemoryApiResources(IdentityServerConfig.Apis)
+            .AddInMemoryClients(IdentityServerConfig.Clients)
+            .AddAspNetIdentity<UserDbModel>();
+
+        return collection;
     }
 }
