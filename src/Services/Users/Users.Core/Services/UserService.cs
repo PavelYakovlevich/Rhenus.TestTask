@@ -14,7 +14,7 @@ public class UserService : IUserService
         _repository = repository;
     }
     
-    public IAsyncEnumerable<User> ReadAsync(int skip, int count, CancellationToken token)
+    public IAsyncEnumerable<UserModel> ReadAsync(int skip, int count, CancellationToken token)
     {
         return _repository.ReadAsync(skip, count, token);
     }
@@ -27,7 +27,7 @@ public class UserService : IUserService
         }
     }
 
-    public async Task UpdateAsync(Guid id, User user, CancellationToken token)
+    public async Task UpdateAsync(Guid id, UserModel user, CancellationToken token)
     {
         if (!await _repository.UpdateAsync(id, user, token))
         {
@@ -35,7 +35,7 @@ public class UserService : IUserService
         }
     }
 
-    public async Task<Guid> CreateAsync(User user, CancellationToken token)
+    public async Task<Guid> CreateAsync(UserModel user, CancellationToken token)
     {
         user.Id = Guid.NewGuid();
         

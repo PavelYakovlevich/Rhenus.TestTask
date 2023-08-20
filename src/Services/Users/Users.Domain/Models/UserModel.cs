@@ -1,6 +1,6 @@
 ﻿namespace Users.Domain.Models;
 
-public class User
+public class UserModel
 {
     public Guid Id { get; set; }
 

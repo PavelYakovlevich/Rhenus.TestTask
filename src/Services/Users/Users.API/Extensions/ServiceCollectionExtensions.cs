@@ -1,10 +1,11 @@
-﻿using Models.Users;
+﻿using Microsoft.EntityFrameworkCore;
 using Users.Contract.Repositories;
 using Users.Contract.Services;
 using Users.Core.Services;
+using Users.Data.Context;
 using Users.Data.Models;
 using Users.Data.Repositories;
-using Users.Domain.Models;
+using UserModel = Users.Domain.Models.UserModel;
 
 namespace ManagementApp.API.Extensions;
 
@@ -17,15 +18,20 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection SetupDatabase(this IServiceCollection collection)
     {
-        return collection.AddSingleton<IUserRepository, InMemoryUserRepository>();
+        collection.AddDbContext<AppDbContext>(options =>
+        {
+            options.UseInMemoryDatabase("ManagementApp");
+        });
+        
+        return collection.AddSingleton<IUserRepository, UserRepository>();
     }
 
     public static IServiceCollection SetupMapper(this IServiceCollection collection)
     {
         return collection.AddAutoMapper(config =>
         {
-            config.CreateMap<User, UserModel>().ReverseMap();
-            config.CreateMap<User, UserDbModel>().ReverseMap();
+            config.CreateMap<UserModel, Models.Users.UserModel>().ReverseMap();
+            config.CreateMap<UserModel, UserDbModel>().ReverseMap();
         });
     }
 }

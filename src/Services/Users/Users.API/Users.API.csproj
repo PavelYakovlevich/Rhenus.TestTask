@@ -10,6 +10,11 @@
     <ItemGroup>
         <PackageReference Include="AutoMapper" Version="12.0.1" />
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+        <PackageReference Include="FluentValidation" Version="11.7.1" />
+        <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.7.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.21" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.21" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3"/>
     </ItemGroup>
 
@@ -19,9 +24,10 @@
       <ProjectReference Include="..\..\..\Shared\Models\Models.csproj" />
       <ProjectReference Include="..\Users.Contract\Users.Contract.csproj" />
       <ProjectReference Include="..\Users.Core\Users.Core.csproj" />
-      <ProjectReference Include="..\Users.Data.MemoryDB\Users.Data.MemoryDB.csproj" />
       <ProjectReference Include="..\Users.Data\Users.Data.csproj" />
     </ItemGroup>
+
+
 
 
 

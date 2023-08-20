@@ -3,7 +3,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Models.Users;
 using Users.Contract.Services;
-using Users.Domain.Models;
+using CreateUserModel = Models.Users.CreateUserModel;
 
 namespace ManagementApp.API.Controllers;
 
@@ -25,9 +25,9 @@ public class UsersController : ControllerBase
     }
     
     [HttpPost]
-    public async Task<IActionResult> CreateUser(UserModel user)
+    public async Task<IActionResult> CreateUser(CreateUserModel user)
     {
-        var model = _mapper.Map<User>(user);
+        var model = _mapper.Map<Users.Domain.Models.CreateUserModel>(user);
 
         var id = await _service.CreateAsync(model, _tokenMock);
         
@@ -43,9 +43,9 @@ public class UsersController : ControllerBase
     }
     
     [HttpPut]
-    public async Task<IActionResult> UpdateUser([Required] Guid id, UserModel user)
+    public async Task<IActionResult> UpdateUser([Required] Guid id, Models.Users.UserModel user)
     {
-        var model = _mapper.Map<User>(user);
+        var model = _mapper.Map<Users.Domain.Models.UserModel>(user);
         
         await _service.UpdateAsync(id, model, _tokenMock);
 
@@ -53,11 +53,11 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet]
-    public async IAsyncEnumerable<UserModel> GetUsers([FromQuery] UserFilters filters)
+    public async IAsyncEnumerable<Models.Users.UserModel> GetUsers([FromQuery] UserFilters filters)
     {
         await foreach (var user in _service.ReadAsync(filters.Skip, filters.Count, _tokenMock))
         {
-            yield return _mapper.Map<UserModel>(user);
+            yield return _mapper.Map<Models.Users.UserModel>(user);
         }
     }
 }
