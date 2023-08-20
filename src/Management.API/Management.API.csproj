@@ -27,10 +27,5 @@
       <ProjectReference Include="..\Services\Users\Users.Data\Users.Data.csproj" />
       <ProjectReference Include="..\Shared\Models\Models.csproj" />
     </ItemGroup>
-
-
-    <ItemGroup>
-      <Folder Include="Middlewares\" />
-    </ItemGroup>
     
 </Project>
