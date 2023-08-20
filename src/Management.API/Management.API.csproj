@@ -20,15 +20,10 @@
 
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\..\Models\Models.csproj" />
-      <ProjectReference Include="..\..\..\Shared\Models\Models.csproj" />
-      <ProjectReference Include="..\Users.Contract\Users.Contract.csproj" />
-      <ProjectReference Include="..\Users.Core\Users.Core.csproj" />
-      <ProjectReference Include="..\Users.Data\Users.Data.csproj" />
+      <ProjectReference Include="..\Services\Users\Users.Contract\Users.Contract.csproj" />
+      <ProjectReference Include="..\Services\Users\Users.Core\Users.Core.csproj" />
+      <ProjectReference Include="..\Services\Users\Users.Data\Users.Data.csproj" />
+      <ProjectReference Include="..\Shared\Models\Models.csproj" />
     </ItemGroup>
-
-
-
-
-
+    
 </Project>
