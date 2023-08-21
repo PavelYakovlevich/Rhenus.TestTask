@@ -2,12 +2,13 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Accounts.Contract.Services;
-using Accounts.Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Models.Account;
 using AccountModel = Accounts.Domain.Models.AccountModel;
 
 namespace ManagementApp.API.Controllers;
 
+[Authorize(AuthenticationSchemes = "Bearer")]
 [ApiController]
 [Route("[controller]")]
 public class AccountsController : ControllerBase

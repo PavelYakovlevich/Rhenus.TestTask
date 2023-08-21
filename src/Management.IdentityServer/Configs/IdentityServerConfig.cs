@@ -34,8 +34,6 @@ internal static class IdentityServerConfig
                 
                 AllowedScopes = new List<string>
                 {
-                    IdentityServerConstants.StandardScopes.OpenId,
-                    IdentityServerConstants.StandardScopes.Profile,
                     "managementAPI"
                 }
             }
@@ -43,8 +41,6 @@ internal static class IdentityServerConfig
     
     public static IEnumerable<ApiScope> Scopes => new []
         {
-            new ApiScope("openid"),
-            new ApiScope("profile"),
             new ApiScope("managementAPI"),
         };
 }

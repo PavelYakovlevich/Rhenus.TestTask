@@ -7,6 +7,7 @@ builder.Services.AddControllers();
 
 builder.SetupServices();
 builder.SetupDatabase();
+builder.SetupModelsValidation();
 builder.SetupAuthentication();
 builder.SetupMapper();
 

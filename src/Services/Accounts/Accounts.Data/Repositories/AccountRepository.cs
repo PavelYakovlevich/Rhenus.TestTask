@@ -20,7 +20,7 @@ public class AccountRepository : IAccountRepository
     
     public async IAsyncEnumerable<AccountModel> ReadAsync(int skip, int count)
     {
-        var users = _context.Users.Skip(skip)
+        var users = _context.Accounts.Skip(skip)
             .Take(count)
             .AsNoTracking();
         

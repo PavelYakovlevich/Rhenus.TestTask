@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Text;
 using Accounts.Contract.Repositories;
 using Accounts.Contract.Services;
 using Accounts.Core.Services;
@@ -8,8 +9,12 @@ using Accounts.Data.Repositories;
 using Accounts.Domain.Models;
 using Auth.Contract.Services;
 using Auth.Core.Services;
+using FluentValidation;
+using ManagementApp.API.Validators;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Models.Account;
 using AccountModel = Models.Account.AccountModel;
 
@@ -33,7 +38,7 @@ public static class ServiceCollectionExtensions
                 optionsBuilder.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(30), null);
             });
         });
-        
+
         builder.Services.AddIdentity<IdentityUser, IdentityRole>()
             .AddEntityFrameworkStores<AppDbContext>()
             .AddDefaultTokenProviders();
@@ -57,11 +62,20 @@ public static class ServiceCollectionExtensions
 
     public static void SetupAuthentication(this WebApplicationBuilder builder)
     {
-        builder.Services.AddAuthentication()
-            .AddJwtBearer(options =>
+        builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
             {
-                // Temporary
                 options.Authority = "https://localhost:7088";
+
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateAudience = false
+                };
             });
+    }
+
+    public static void SetupModelsValidation(this WebApplicationBuilder builder)
+    {
+        builder.Services.AddValidatorsFromAssemblyContaining<AccountModelValidator>();
     }
 }
