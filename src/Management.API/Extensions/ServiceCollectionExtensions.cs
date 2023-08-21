@@ -10,6 +10,7 @@ using Accounts.Domain.Models;
 using Auth.Contract.Services;
 using Auth.Core.Services;
 using FluentValidation;
+using FluentValidation.AspNetCore;
 using ManagementApp.API.Validators;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -76,6 +77,7 @@ public static class ServiceCollectionExtensions
 
     public static void SetupModelsValidation(this WebApplicationBuilder builder)
     {
-        builder.Services.AddValidatorsFromAssemblyContaining<AccountModelValidator>();
+        builder.Services.AddValidatorsFromAssemblyContaining<AccountFiltersValidator>();
+        builder.Services.AddFluentValidationAutoValidation();
     }
 }
