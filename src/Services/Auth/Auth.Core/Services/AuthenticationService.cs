@@ -10,7 +10,6 @@ namespace Auth.Core.Services;
 public class AuthenticationService : IAuthenticationService
 {
     private readonly UserManager<IdentityUser> _userManager;
-    private readonly SignInManager<IdentityUser> _signInManager;
     private readonly IAccountService _accountService;
     private readonly IMapper _mapper;
 
@@ -21,7 +20,6 @@ public class AuthenticationService : IAuthenticationService
         IMapper mapper)
     {
         _userManager = userManager;
-        _signInManager = signInManager;
         _accountService = accountService;
         _mapper = mapper;
     }
@@ -51,15 +49,5 @@ public class AuthenticationService : IAuthenticationService
         await _accountService.CreateAsync(newAccount);
         
         return result.Succeeded;
-    }
-
-    public async Task LoginAsync(string email, string password)
-    {
-        var result =  await _signInManager.PasswordSignInAsync(email, password, false, false);
-
-        if (!result.Succeeded)
-        {
-            throw new WrongCredentialsException("Invalid email or password");
-        }
     }
 }

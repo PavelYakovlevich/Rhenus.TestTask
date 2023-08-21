@@ -5,6 +5,4 @@ namespace Auth.Contract.Services;
 public interface IAuthenticationService
 {
     Task<bool> RegisterAsync(AccountRegistrationModel userModel);
-    
-    Task LoginAsync(string email, string password);
 }
