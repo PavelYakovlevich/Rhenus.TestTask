@@ -1,1 +1,35 @@
-<p>login-form works!</p>
+<div class="auth-form">
+    <!-- <app-error-box *ngIf='lastError' [error]="lastError" (onClose)="lastError = null"></app-error-box> -->
+
+    <div class="auth-form-row">
+        <div class="auth-form-title">
+            <h1>Login</h1>
+        </div>
+    </div>
+
+    <div class="auth-form-row">
+        <form [formGroup]="loginForm">
+            <app-input label="Enter your email"
+                placeholder="Enter your email"
+                formControlName="email">
+            </app-input>
+    
+            <app-input label="Enter your password"
+                placeholder="Enter your password"
+                formControlName="password"
+                [isSecret]="true">
+            </app-input>
+        </form>
+    </div>
+    
+    <div class="auth-form-row">
+        <button class="auth-form-button" mat-raised-button color="primary">Login</button>
+    </div>
+
+    <div class="other-links-container">
+        <span>Doesn't have an account? </span>
+        <a routerLink="../registration" class="ml-1 link-text">Create an account</a>
+    </div>
+
+      <!-- <mat-progress-bar class='w-100 h-100 mt-5' *ngIf='requestInProgress' mode="indeterminate"></mat-progress-bar> -->
+</div>
