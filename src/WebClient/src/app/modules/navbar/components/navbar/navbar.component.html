@@ -1,1 +1,18 @@
-<p>navbar works!</p>
+<div class="navbar">
+    <mat-toolbar>
+        <span>Users management app</span>
+        
+        <span class="spacer"></span>
+
+        <div class="navbar-button-container">
+            <button mat-fab aria-label="Account button" [matMenuTriggerFor]="menu">
+                <mat-icon>account_circle</mat-icon>
+            </button>
+        </div>
+
+        <mat-menu #menu="matMenu">
+            <span mat-menu-item>User</span>
+            <button mat-menu-item>Log out</button>
+        </mat-menu>
+    </mat-toolbar>
+</div>
