@@ -6,11 +6,7 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
-
     <ItemGroup>
-      <ProjectReference Include="..\Accounts.Domain\Accounts.Domain.csproj" />
+        <ProjectReference Include="..\Accounts.Domain\Accounts.Domain.csproj" />
     </ItemGroup>
-
-
-
 </Project>

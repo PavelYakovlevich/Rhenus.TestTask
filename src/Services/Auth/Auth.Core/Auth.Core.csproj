@@ -9,9 +9,8 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\Shared\Exceptions\Exceptions.csproj" />
-      <ProjectReference Include="..\..\Accounts\Accounts.Contract\Accounts.Contract.csproj" />
-      <ProjectReference Include="..\..\Accounts\Accounts.Domain\Accounts.Domain.csproj" />
-      <ProjectReference Include="..\..\Users\Accounts.Contract\Accounts.Contract.csproj" />
+        <ProjectReference Include="..\..\Accounts\Accounts.Domain\Accounts.Domain.csproj" />
+        <ProjectReference Include="..\..\Accounts\Accounts.Contract\Accounts.Contract.csproj" />
       <ProjectReference Include="..\Auth.Contract\Auth.Contract.csproj" />
     </ItemGroup>
 

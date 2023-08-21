@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Identity;
 
 namespace Accounts.Data.Models;
 
@@ -14,5 +15,6 @@ public class Account
     
     public string UserId { get; set; }
     
-    public virtual IdentityUser<Guid> User { get; set; }
+    [ForeignKey(nameof(UserId))]
+    public virtual IdentityUser User { get; set; }
 }

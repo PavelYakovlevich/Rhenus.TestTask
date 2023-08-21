@@ -37,6 +37,8 @@ public class AccountService : IAccountService
 
     public async Task CreateAsync(AccountModel accountModel)
     {
+        accountModel.Id = Guid.NewGuid();
+        
         await _repository.CreateAsync(accountModel);
     }
 }

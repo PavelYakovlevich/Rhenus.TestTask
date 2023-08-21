@@ -9,14 +9,14 @@ namespace Auth.Core.Services;
 
 public class AuthenticationService : IAuthenticationService
 {
-    private readonly UserManager<AccountModel> _userManager;
-    private readonly SignInManager<AccountModel> _signInManager;
+    private readonly UserManager<IdentityUser> _userManager;
+    private readonly SignInManager<IdentityUser> _signInManager;
     private readonly IAccountService _accountService;
     private readonly IMapper _mapper;
 
     public AuthenticationService(
-        UserManager<AccountModel> userManager, 
-        SignInManager<AccountModel> signInManager, 
+        UserManager<IdentityUser> userManager, 
+        SignInManager<IdentityUser> signInManager, 
         IAccountService accountService,
         IMapper mapper)
     {
@@ -26,24 +26,30 @@ public class AuthenticationService : IAuthenticationService
         _mapper = mapper;
     }
     
-    public async Task<bool> RegisterAsync(AccountRegistrationModel accountModel)
+    public async Task<bool> RegisterAsync(AccountRegistrationModel accountRegistrationModelModel)
     {
-        var user = await _userManager.FindByEmailAsync(accountModel.Email);
+        var user = await _userManager.FindByEmailAsync(accountRegistrationModelModel.Email);
 
         if (user is not null)
         {
-            throw new AlreadyExistsException($"User with email '{accountModel.Email}' exists");
+            throw new AlreadyExistsException($"User with email '{accountRegistrationModelModel.Email}' exists");
         }
 
-        var newAccount = _mapper.Map<AccountModel>(accountModel);
+        var newUser = _mapper.Map<IdentityUser>(accountRegistrationModelModel);
+        newUser.UserName = accountRegistrationModelModel.Email;
         
-        var result = await _userManager.CreateAsync(newAccount, accountModel.Password);
+        var result = await _userManager.CreateAsync(newUser, accountRegistrationModelModel.Password);
 
-        if (result.Succeeded)
+        if (!result.Succeeded)
         {
-            await _accountService.CreateAsync(newAccount);
+            throw new RegistrationFailedException(result.Errors.FirstOrDefault()?.Description ?? string.Empty);
         }
-
+        
+        var newAccount = _mapper.Map<AccountModel>(accountRegistrationModelModel);
+        newAccount.UserId = Guid.Parse(newUser.Id);
+        
+        await _accountService.CreateAsync(newAccount);
+        
         return result.Succeeded;
     }
 

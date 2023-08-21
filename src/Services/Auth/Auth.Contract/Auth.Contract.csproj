@@ -6,10 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
-
     <ItemGroup>
       <ProjectReference Include="..\..\Accounts\Accounts.Domain\Accounts.Domain.csproj" />
-      <ProjectReference Include="..\..\Users\Accounts.Domain\Accounts.Domain.csproj" />
     </ItemGroup>
 
 </Project>

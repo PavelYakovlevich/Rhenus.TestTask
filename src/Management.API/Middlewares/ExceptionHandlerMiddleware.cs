@@ -40,6 +40,13 @@ internal class ExceptionHandlerMiddleware
                 StatusCodes.Status401Unauthorized,
                 "Unauthorized");
         }
+        catch (RegistrationFailedException exception)
+        {
+            await HandleException(httpContext,
+                exception,
+                StatusCodes.Status400BadRequest,
+                "Bad request");
+        }
         catch (Exception exception) 
         {
             await HandleException(httpContext,

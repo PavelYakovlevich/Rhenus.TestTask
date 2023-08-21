@@ -5,10 +5,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.Services.SetupServices();
-builder.Services.SetupDatabase();
-builder.Services.SetupAuthentication();
-builder.Services.SetupMapper();
+builder.SetupServices();
+builder.SetupDatabase();
+builder.SetupAuthentication();
+builder.SetupMapper();
 
 var app = builder.Build();
 
@@ -16,7 +16,8 @@ app.UseHttpsRedirection();
 
 app.UseExceptionHandler();
 
-app.UseIdentityServer();
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 

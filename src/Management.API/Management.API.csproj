@@ -14,12 +14,18 @@
         <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
         <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.7.1" />
         <PackageReference Include="IdentityServer4.AspNetIdentity" Version="4.1.2" />
+        <PackageReference Include="IdentityServer4.EntityFramework" Version="4.1.2" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.21" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.21" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.21">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
         <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.21" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.21" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0-preview.7.23375.6" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3"/>
     </ItemGroup>
-
 
     <ItemGroup>
       <ProjectReference Include="..\Services\Accounts\Accounts.Contract\Accounts.Contract.csproj" />
@@ -27,9 +33,7 @@
       <ProjectReference Include="..\Services\Accounts\Accounts.Data\Accounts.Data.csproj" />
       <ProjectReference Include="..\Services\Accounts\Accounts.Domain\Accounts.Domain.csproj" />
       <ProjectReference Include="..\Services\Auth\Auth.Contract\Auth.Contract.csproj" />
-      <ProjectReference Include="..\Services\Users\Accounts.Contract\Accounts.Contract.csproj" />
-      <ProjectReference Include="..\Services\Users\Accounts.Core\Accounts.Core.csproj" />
-      <ProjectReference Include="..\Services\Users\Accounts.Data\Accounts.Data.csproj" />
+      <ProjectReference Include="..\Services\Auth\Auth.Core\Auth.Core.csproj" />
       <ProjectReference Include="..\Shared\Models\Models.csproj" />
     </ItemGroup>
     
