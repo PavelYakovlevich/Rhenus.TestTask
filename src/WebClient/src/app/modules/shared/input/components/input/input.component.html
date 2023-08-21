@@ -1,10 +1,15 @@
 <mat-form-field>
     <mat-label> {{ label }} </mat-label>
-    <input matInput [placeholder]="placeholder" aria-required="false" [value]="value" [type]="isSecret && hideValue ? 'password' : 'text'">
+    <input matInput 
+        [placeholder]="placeholder" 
+        aria-required="false" 
+        (change)="setValue($event.target)"
+        [type]="isSecret && hideValue ? 'password' : 'text'"
+        [formControl]="formControl">
 
     <button *ngIf="isSecret" mat-icon-button matSuffix (click)="hideValue = !hideValue" [attr.aria-label]="'Hide value'" [attr.aria-pressed]="hideValue">
         <mat-icon>{{hideValue ? 'visibility_off' : 'visibility'}}</mat-icon>
     </button>
 
-    <mat-error *ngIf="formControl.invalid && formControl.touched">{{ "some error message" }}</mat-error>
+    <mat-error *ngIf="formControl.invalid && formControl.touched">{{ getErrorMessage(formControl) }}</mat-error>
 </mat-form-field>

@@ -23,7 +23,9 @@
     </div>
     
     <div class="auth-form-row">
-        <button class="auth-form-button" mat-raised-button color="primary">Login</button>
+        <button class="auth-form-button" mat-raised-button color="primary" (click)="onLoginBtnWasClicked()" [disabled]="!formIsValid()">
+            Login
+        </button>
     </div>
 
     <div class="other-links-container">

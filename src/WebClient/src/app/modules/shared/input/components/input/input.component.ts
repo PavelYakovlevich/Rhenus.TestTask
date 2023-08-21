@@ -5,7 +5,7 @@ import { AbstractControl, ControlValueAccessor, FormControl, NgControl } from '@
   selector: 'app-input',
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush 
 })
 export class InputComponent implements ControlValueAccessor, AfterContentInit  {
   private control: AbstractControl;
@@ -16,8 +16,8 @@ export class InputComponent implements ControlValueAccessor, AfterContentInit  {
   
   hideValue: boolean = true;
   value: string = '';
-  onChange?: (value: any) => void;
-  onTouched?: (value: any) => void;
+  onChange: any = (value: any) => {}
+  onTouched: any = (value: any) => {}
 
   constructor(@Self() private readonly ngControl: NgControl) {
     ngControl.valueAccessor = this;
@@ -28,7 +28,7 @@ export class InputComponent implements ControlValueAccessor, AfterContentInit  {
   }
 
   writeValue(value: any): void {
-    this.setValue(value)
+    this.value = value;
   }
 
   registerOnChange(fn: (value: any) => void): void {
@@ -43,8 +43,17 @@ export class InputComponent implements ControlValueAccessor, AfterContentInit  {
     return this.control as FormControl<string>;
   }
 
-  private setValue(value: any) {
+  setValue(eventTarget: any) {
+    const value = eventTarget.value;
+
     this.value = value;
-    this.onChange && this.onChange(value);
+    this.onChange(value);
+    this.onTouched(value);
+  }
+
+  getErrorMessage(control: FormControl): string {
+    console.log(control)
+    const firstError = Object.keys(control.errors!).pop()!
+    return control.getError(firstError)
   }
 }
