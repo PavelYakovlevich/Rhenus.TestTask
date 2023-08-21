@@ -4,8 +4,17 @@ import { UsersDashboardComponent } from './modules/users-dashboard/components/us
 
 const routes: Routes = [
   {
-    path: "**", component: UsersDashboardComponent
-  }
+    path: "auth/login",
+    loadChildren: () => import('./modules/auth/login/login.module').then(m => m.LoginModule)
+  },
+  {
+    path: "auth/registration",
+    loadChildren: () => import('./modules/auth/registration/registration.module').then(m => m.RegistrationModule)
+  },
+  {
+    path: "**", 
+    component: UsersDashboardComponent
+  },
 ];
 
 @NgModule({
