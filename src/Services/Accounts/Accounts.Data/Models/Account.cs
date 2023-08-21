@@ -12,9 +12,4 @@ public class Account
     public string LastName { get; set; }
 
     public DateTime Birthday { get; set; }
-    
-    public string UserId { get; set; }
-    
-    [ForeignKey(nameof(UserId))]
-    public virtual IdentityUser User { get; set; }
 }

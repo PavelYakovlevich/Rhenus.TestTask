@@ -1,6 +1,6 @@
 ﻿namespace Models.Account;
 
-public class AccountCreationModel : AccountModel
+public class CreateAccountModel : AccountModel
 {
     public string Email { get; set; }
     

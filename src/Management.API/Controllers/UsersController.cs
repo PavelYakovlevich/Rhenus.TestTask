@@ -1,5 +1,5 @@
-﻿using Accounts.Domain.Models;
-using Auth.Contract.Services;
+﻿using Accounts.Contract.Services;
+using Accounts.Domain.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Models.Account;
@@ -10,21 +10,21 @@ namespace ManagementApp.API.Controllers;
 [Route("auth")]
 public class UsersController : ControllerBase
 {
-    private readonly IAuthenticationService _service;
+    private readonly IAccountService _service;
     private readonly IMapper _mapper;
 
-    public UsersController(IAuthenticationService service, IMapper mapper)
+    public UsersController(IAccountService service, IMapper mapper)
     {
         _service = service;
         _mapper = mapper;
     }
     
     [HttpPost("registration")]
-    public async Task<IActionResult> Register([FromBody] AccountCreationModel user)
+    public async Task<IActionResult> Register([FromBody] CreateAccountModel user)
     {
         var model = _mapper.Map<AccountRegistrationModel>(user);
 
-        await _service.RegisterAsync(model);
+        await _service.CreateAsync(model);
         
         return CreatedAtAction(nameof(Register), null);
     }

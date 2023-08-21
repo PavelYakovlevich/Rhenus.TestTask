@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using System.Text;
 using Accounts.Contract.Repositories;
 using Accounts.Contract.Services;
 using Accounts.Core.Services;
@@ -7,8 +6,6 @@ using Accounts.Data.Context;
 using Accounts.Data.Models;
 using Accounts.Data.Repositories;
 using Accounts.Domain.Models;
-using Auth.Contract.Services;
-using Auth.Core.Services;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using ManagementApp.API.Validators;
@@ -23,9 +20,8 @@ namespace ManagementApp.API.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static void SetupServices(this WebApplicationBuilder builder) => 
-        builder.Services.AddTransient<IAccountService, AccountService>()
-            .AddTransient<IAuthenticationService, AuthenticationService>();
+    public static void SetupServices(this WebApplicationBuilder builder) =>
+        builder.Services.AddTransient<IAccountService, AccountService>();
 
     public static void SetupDatabase(this WebApplicationBuilder builder)
     {
@@ -53,7 +49,7 @@ public static class ServiceCollectionExtensions
         {
             config.CreateMap<AccountModel, Accounts.Domain.Models.AccountModel>().ReverseMap();
             config.CreateMap<Accounts.Domain.Models.AccountModel, Account>().ReverseMap();
-            config.CreateMap<AccountCreationModel, AccountRegistrationModel>().ReverseMap();
+            config.CreateMap<CreateAccountModel, AccountRegistrationModel>().ReverseMap();
             config.CreateMap<AccountRegistrationModel, Accounts.Domain.Models.AccountModel>().ReverseMap();
             config.CreateMap<AccountRegistrationModel, IdentityUser>()
                 .ForMember(dest => dest.UserName, options =>

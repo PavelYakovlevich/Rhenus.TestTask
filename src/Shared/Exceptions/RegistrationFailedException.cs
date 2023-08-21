@@ -1,7 +1,7 @@
 ﻿namespace Exceptions;
 
 [Serializable]
-public class RegistrationFailedException : Exception
+public class RegistrationFailedException : OperationFailedException
 {
     public RegistrationFailedException() 
     {

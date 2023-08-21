@@ -32,8 +32,6 @@
       <ProjectReference Include="..\Services\Accounts\Accounts.Core\Accounts.Core.csproj" />
       <ProjectReference Include="..\Services\Accounts\Accounts.Data\Accounts.Data.csproj" />
       <ProjectReference Include="..\Services\Accounts\Accounts.Domain\Accounts.Domain.csproj" />
-      <ProjectReference Include="..\Services\Auth\Auth.Contract\Auth.Contract.csproj" />
-      <ProjectReference Include="..\Services\Auth\Auth.Core\Auth.Core.csproj" />
       <ProjectReference Include="..\Shared\Models\Models.csproj" />
     </ItemGroup>
     

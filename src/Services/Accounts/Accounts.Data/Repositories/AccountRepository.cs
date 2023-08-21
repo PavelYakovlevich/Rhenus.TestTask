@@ -32,29 +32,25 @@ public class AccountRepository : IAccountRepository
 
     public async Task<bool> DeleteAsync(Guid id)
     {
-        var idString = id.ToString();
-        
-        var targetUser = await _context.Users.FirstOrDefaultAsync(user => user.Id == idString);
+        var targetUser = await _context.Accounts.FirstOrDefaultAsync(user => user.Id == id);
         if (targetUser is null)
         {
             return false;
         }
 
-        _context.Users.Remove(targetUser);
+        _context.Accounts.Remove(targetUser);
 
         return await _context.SaveChangesAsync() != 0;
     }
 
     public async Task<bool> UpdateAsync(Guid id, AccountModel userModel)
     {
-        var idString = id.ToString();
-
-        var targetUser = await _context.Users.FirstOrDefaultAsync(user => user.Id == idString);
+        var targetUser = await _context.Accounts.FirstOrDefaultAsync(user => user.Id == id);
         if (targetUser is null)
         {
             return false;
         }
-
+        
         _mapper.Map(userModel, targetUser);
 
         return await _context.SaveChangesAsync() != 0;

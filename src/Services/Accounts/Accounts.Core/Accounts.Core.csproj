@@ -13,4 +13,9 @@
         <ProjectReference Include="..\Accounts.Contract\Accounts.Contract.csproj" />
     </ItemGroup>
 
+
+    <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="12.0.1" />
+    </ItemGroup>
+
 </Project>

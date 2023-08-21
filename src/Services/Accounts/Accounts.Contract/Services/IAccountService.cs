@@ -10,5 +10,5 @@ public interface IAccountService
 
     Task UpdateAsync(Guid id, AccountModel user);
 
-    Task CreateAsync(AccountModel user);
+    Task CreateAsync(AccountRegistrationModel accountRegistrationModelModel);
 }

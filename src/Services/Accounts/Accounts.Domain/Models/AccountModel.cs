@@ -13,6 +13,4 @@ public class AccountModel
     public string LastName { get; set; }
 
     public DateTime Birthday { get; set; }
-
-    public Guid UserId { get; set; }
 }

@@ -22,16 +22,16 @@ public class AccountsController : ControllerBase
         _mapper = mapper;
     }
     
-    [HttpDelete]
-    public async Task<IActionResult> DeleteUser(Guid id)
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> DeleteUser([FromRoute] Guid id)
     {
         await _service.DeleteAsync(id);
 
         return NoContent();
     }
     
-    [HttpPut]
-    public async Task<IActionResult> UpdateUser([Required] Guid id, Models.Account.AccountModel user)
+    [HttpPut("{id:guid}")]
+    public async Task<IActionResult> UpdateUser([FromRoute] Guid id, Models.Account.AccountModel user)
     {
         var model = _mapper.Map<AccountModel>(user);
         

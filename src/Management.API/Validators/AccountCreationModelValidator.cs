@@ -3,7 +3,7 @@ using Models.Account;
 
 namespace ManagementApp.API.Validators;
 
-public class AccountCreationModelValidator : AccountValidator<AccountCreationModel>
+public class AccountCreationModelValidator : AccountValidator<CreateAccountModel>
 {
     public AccountCreationModelValidator()
     {
