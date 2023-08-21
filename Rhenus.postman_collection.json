@@ -1,0 +1,219 @@
+{
+	"info": {
+		"_postman_id": "6d106a5a-16c8-48c2-b368-520bbcf778ae",
+		"name": "Rhenus",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21317236"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "Debug",
+							"item": [
+								{
+									"name": "Authorize",
+									"request": {
+										"method": "GET",
+										"header": []
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Register user",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"admin@gmail.com\",\r\n    \"password\": \"admin123@\",\r\n    \"name\": \"Ivan\",\r\n    \"lastname\": \"Diesel\",\r\n    \"birthday\": \"{{$isoTimestamp}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HTTPS_HOST}}/auth/registration",
+									"host": [
+										"{{HTTPS_HOST}}"
+									],
+									"path": [
+										"auth",
+										"registration"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const token = JSON.parse(pm.response.body).access_token;\r",
+											"pm.environment.set(\"JWT_TOKEN\", token);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "client_id",
+											"value": "frontend",
+											"type": "text"
+										},
+										{
+											"key": "scope",
+											"value": "managementAPI",
+											"type": "text"
+										},
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "admin1@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "Admin123@",
+											"type": "text"
+										},
+										{
+											"key": "client_secret",
+											"value": "secret",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://localhost:7088/connect/token",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7088",
+									"path": [
+										"connect",
+										"token"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HTTPS_HOST}}/?skip=0&count=5",
+							"host": [
+								"{{HTTPS_HOST}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "skip",
+									"value": "0"
+								},
+								{
+									"key": "count",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Petr\",\r\n    \"lastname\": \"Diesel\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HTTPS_HOST}}/accounts",
+							"host": [
+								"{{HTTPS_HOST}}"
+							],
+							"path": [
+								"accounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{HTTPS_HOST}}/accounts/d0ca159d-1630-4e1d-80c4-9585e3956ad2",
+							"host": [
+								"{{HTTPS_HOST}}"
+							],
+							"path": [
+								"accounts",
+								"d0ca159d-1630-4e1d-80c4-9585e3956ad2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
