@@ -1,4 +1,5 @@
 ﻿using Accounts.Data.Context;
+using IdentityServer4.Services;
 using Management.IdentityServer.Configs;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +8,21 @@ namespace Management.IdentityServer.Extensions;
 
 public static class ServiceCollectionExtensions
 {
+    public static void SetupCors(this WebApplicationBuilder builder)
+    {
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("OnlyFrontend",
+                optionsBuilder =>
+                {
+                    optionsBuilder.WithOrigins("http://localhost:4200")
+                        .AllowCredentials()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                });
+        });
+    }
+    
     public static void SetupIdentityServer(this WebApplicationBuilder builder)
     {
         var connectionString = builder.Configuration.GetConnectionString("MSSQL");
