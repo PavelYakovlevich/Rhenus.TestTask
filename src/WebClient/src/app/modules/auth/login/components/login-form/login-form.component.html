@@ -33,5 +33,5 @@
         <a routerLink="../registration" class="ml-1 link-text">Create an account</a>
     </div>
 
-      <!-- <mat-progress-bar class='w-100 h-100 mt-5' *ngIf='requestInProgress' mode="indeterminate"></mat-progress-bar> -->
+    <mat-progress-bar class='progress-bar' *ngIf='requestInProgress$ | async' mode="indeterminate"></mat-progress-bar>
 </div>

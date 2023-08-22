@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthenticationConstants, authenticationHost } from '../constants/authentication-constants';
-import { Observable } from 'rxjs';
+import { Observable, delay } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,9 @@ export class AuthService {
 
     return this.httpClient.post(`${authenticationHost}/connect/token`, params.toString(), {
       headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-    });
+    }).pipe(
+      delay(2000)
+    );
   }
 
   private buildHttpParams(email: string, password: string): HttpParams {

@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ChangeDetectionStrategy, ErrorHandler } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subject, finalize } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { StorageService } from 'src/app/core/services/storage.service';
 import { getDecodedAccessToken } from 'src/app/core/utils/jwt-utils';
@@ -15,6 +16,7 @@ import { emailValidator, passwordValidator } from 'src/app/core/validators/valid
 })
 export class LoginFormComponent {
   loginForm: FormGroup;
+  requestInProgress$: Subject<boolean> = new Subject();
 
   constructor(
     fb: FormBuilder,
@@ -33,7 +35,12 @@ export class LoginFormComponent {
     const email = this.loginForm.controls["email"].value;
     const password = this.loginForm.controls["password"].value;
 
+    this.requestInProgress$.next(true);
+
     this.authService.login(email, password)
+      .pipe(
+        finalize(() => this.requestInProgress$.next(false))
+      )
       .subscribe({
         next: this.onSuccesfullLogin.bind(this),
         error: this.handleError.bind(this)
@@ -55,8 +62,6 @@ export class LoginFormComponent {
 
     this.userStorageService.saveAccessToken(loginResult.access_token);
     this.userStorageService.saveUserId(decodedJwt.sub);
-
-    console.log('here')
 
     this.router.navigate(['']);
   }
