@@ -1,0 +1,25 @@
+.acounts-list {
+    width: 50vh;
+}
+
+.account-box {
+    display: flex;
+    justify-self: center;
+    align-items: center;
+}
+
+.spacer {
+    flex: 1 1;
+}
+
+.action-buttons-container {
+    display: flex;
+}
+
+.users-actions-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}

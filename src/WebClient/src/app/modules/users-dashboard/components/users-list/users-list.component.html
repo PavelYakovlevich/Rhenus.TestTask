@@ -1,1 +1,36 @@
-<p>users-list works!</p>
+<div class="acounts-list">
+    <mat-list>
+        <ng-container *ngFor="let account of (accounts$ | async)">
+            <mat-list-item>
+                <div class="account-box">
+                    <div class="account-data">
+                        <span>{{account.id | normalize:8}} </span>
+                        <span>{{account.name + ' ' + account.lastName | titlecase}}</span>
+                    </div>
+
+                    <div class="spacer">
+                    </div>
+                    
+                    <div class="action-buttons-container">
+                        <button mat-icon-button color="primary">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+
+                        <button mat-icon-button color="warn" (click)="openConfirmationDialog(account.id)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+        </ng-container>
+    </mat-list>
+
+    <mat-spinner *ngIf="getAccountsRequestInProgress$ | async; else loadMoreButton"></mat-spinner>
+
+    <ng-template #loadMoreButton>
+        <div class="users-actions-buttons">
+            <button mat-raised-button color="primary" (click)="onLoadMoreBtnWasClicked()">Load more</button>
+        </div>
+    </ng-template>
+</div>  
