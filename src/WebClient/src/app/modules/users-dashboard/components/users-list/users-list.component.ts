@@ -5,6 +5,7 @@ import { BehaviorSubject, Subject, delay, finalize } from 'rxjs';
 import { AccountModel } from 'src/app/core/models/account';
 import { AccountsService } from 'src/app/core/services/accounts.service';
 import { ErrorHandlerService } from 'src/app/core/services/error-handler.service';
+import { StorageService } from 'src/app/core/services/storage.service';
 import { ConfirmationDialogComponent } from 'src/app/modules/shared/confirmation-dialog/components/confirmation-dialog/confirmation-dialog.component';
 
 const userPerRequestCount = 10;
@@ -21,14 +22,18 @@ export class UsersListComponent implements OnInit {
   accounts$ = new BehaviorSubject<AccountModel[]>([]);
   getAccountsRequestInProgress$ = new Subject<boolean>();
 
+  currentUserId: string = ''
+
   constructor(
     private readonly accountsService: AccountsService,
     private readonly errorHandler: ErrorHandlerService,
+    private readonly storageService: StorageService,
     public confirmationDialog: MatDialog
   ) {
   }
 
   ngOnInit(): void {
+    this.currentUserId = this.storageService.getUserId()!;
     this.loadAccountsChunk();
   }
 

@@ -1,20 +1,20 @@
 <div class="navbar">
-    <mat-toolbar>
+    <div class="navbar-links">
         <span>Users management app</span>
+    </div>
         
-        <span class="spacer"></span>
+    <span class="spacer"></span>
 
-        <ng-container *ngIf="storageService.userLoggedIn$ | async">
-            <div class="navbar-button-container">
-                <button mat-icon-button aria-label="Account button" [matMenuTriggerFor]="menu">
-                    <mat-icon color="primary">account_circle</mat-icon>
-                </button>
-            </div>
-        </ng-container>
+    <ng-container *ngIf="storageService.user$ | async as user">
+        <div class="navbar-button-container">
+            <button mat-icon-button aria-label="Account button" [matMenuTriggerFor]="menu">
+                <mat-icon class="navbar-icon" color="primary">account_circle</mat-icon>
+            </button>
+        </div>
 
         <mat-menu #menu="matMenu">
-            <span mat-menu-item>User</span>
+            <span mat-menu-item>Profile</span>
             <button mat-menu-item>Log out</button>
         </mat-menu>
-    </mat-toolbar>
+    </ng-container>
 </div>

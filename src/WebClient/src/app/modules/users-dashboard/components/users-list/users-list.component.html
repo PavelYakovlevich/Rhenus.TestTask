@@ -4,8 +4,10 @@
             <mat-list-item>
                 <div class="account-box">
                     <div class="account-data">
-                        <span>{{account.id | normalize:8}} </span>
-                        <span>{{account.name + ' ' + account.lastName | titlecase}}</span>
+                        <mat-icon class="account-data-image">account_circle</mat-icon>
+
+                        <span class="account-data-text">{{account.id | normalize:8}}</span>
+                        <span class="account-data-text">{{account.name + ' ' + account.lastName | titlecase}}</span>
                     </div>
 
                     <div class="spacer">
@@ -16,7 +18,7 @@
                             <mat-icon>edit</mat-icon>
                         </button>
 
-                        <button mat-icon-button color="warn" (click)="openConfirmationDialog(account.id)">
+                        <button *ngIf="account.id !== currentUserId" mat-icon-button color="warn" (click)="openConfirmationDialog(account.id)">
                             <mat-icon>delete</mat-icon>
                         </button>
                     </div>

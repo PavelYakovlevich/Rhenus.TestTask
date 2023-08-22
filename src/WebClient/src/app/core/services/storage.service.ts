@@ -7,7 +7,7 @@ import { AccountModel } from '../models/account';
   providedIn: 'root'
 })
 export class StorageService {
-  userLoggedIn$: Subject<boolean> = new Subject() 
+  user$: Subject<AccountModel> = new Subject() 
 
   saveTokens(accessToken: string, refreshToken: string) {
     sessionStorage.setItem(UserStorageContants.accessToken, accessToken);
@@ -33,7 +33,7 @@ export class StorageService {
   saveUser(user: AccountModel) {
     sessionStorage.setItem(UserStorageContants.user, JSON.stringify(user));
 
-    this.userLoggedIn$.next(true);
+    this.user$.next(user);
   }
 
   clear() {
