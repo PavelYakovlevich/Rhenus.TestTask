@@ -19,17 +19,15 @@ export class AuthInterceptor implements HttpInterceptor {
     if (!accessToken) {
         return next.handle(req);
     }
-    
-    const authReq = req.clone({
-      headers: req.headers.set('Bearer', accessToken),
-    })
+
+    const authReq = this.addAuthorizationHeader(req, accessToken);
 
     return next.handle(authReq).pipe(
       catchError(err => this.handleError(next, req, err))
     )
   }
 
-  handleError(next: HttpHandler, sourceReq: HttpRequest<any>, err: HttpErrorResponse) {
+  private handleError(next: HttpHandler, sourceReq: HttpRequest<any>, err: HttpErrorResponse) {
     if (err.status !== 401) {
         return throwError(() => err);
     }
@@ -37,15 +35,19 @@ export class AuthInterceptor implements HttpInterceptor {
     const refreshToken = this.storageService.getRefreshToken()!;
     
     return this.authService.refreshToken(refreshToken).pipe(
-        switchMap((result: { access_token: string, refresh_token: string }, index) => {
+        switchMap((result: { access_token: string, refresh_token: string }, _) => {
             this.storageService.saveTokens(result.access_token, result.refresh_token);
 
-            const authReq = sourceReq.clone({
-                headers: sourceReq.headers.set('Bearer', result.access_token),
-            })
+            const authReq = this.addAuthorizationHeader(sourceReq, result.access_token);
 
             return next.handle(authReq);
         })
     )
+  }
+
+  private addAuthorizationHeader(req: HttpRequest<any>, token: string): HttpRequest<any> {
+    return req.clone({
+        headers: req.headers.set('Authorization', `Bearer ${token}`),
+    })
   }
 }
