@@ -63,6 +63,10 @@ export class UsersListComponent implements OnInit {
   onLoadMoreBtnWasClicked() {
     this.loadAccountsChunk();
   }
+  
+  onEditUserBtnWasClicked(id: string) {
+  
+  }
 
   private loadAccountsChunk() {
     this.getAccountsRequestInProgress$.next(true);

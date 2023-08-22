@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { UsersDashboardComponent } from './modules/users-dashboard/components/users-dashboard/users-dashboard.component';
 import { userAuthenticatedGuard } from './core/guards/user-authenticated.guard';
 
 const routes: Routes = [
@@ -13,9 +12,13 @@ const routes: Routes = [
     loadChildren: () => import('./modules/auth/registration/registration.module').then(m => m.RegistrationModule)
   },
   {
-    path: "**", 
+    path: "users", 
     loadChildren: () => import('./modules/users-dashboard/users-dashboard.module').then(m => m.UsersDashboardModule),
     canActivate: [userAuthenticatedGuard],
+  },
+  {
+    path: "**", 
+    redirectTo: "auth/login"
   }
 ];
 
