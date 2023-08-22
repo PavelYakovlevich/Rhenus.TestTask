@@ -7,6 +7,10 @@
 
     <ng-container *ngIf="storageService.user$ | async as user">
         <div class="navbar-button-container">
+            <button mat-icon-button aria-label="Create account button" color="primary">
+                <mat-icon class="navbar-icon" color="account">person_add</mat-icon>
+            </button>
+
             <button mat-icon-button aria-label="Account button" [matMenuTriggerFor]="menu">
                 <mat-icon class="navbar-icon" color="primary">account_circle</mat-icon>
             </button>

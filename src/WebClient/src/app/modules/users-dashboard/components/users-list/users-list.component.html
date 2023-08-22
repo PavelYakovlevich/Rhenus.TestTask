@@ -28,11 +28,10 @@
         </ng-container>
     </mat-list>
 
-    <mat-spinner *ngIf="getAccountsRequestInProgress$ | async; else loadMoreButton"></mat-spinner>
-
-    <ng-template #loadMoreButton>
-        <div class="users-actions-buttons">
+    <div class="actions-container">
+        <mat-progress-bar *ngIf="getAccountsRequestInProgress$ | async; else loadMoreButton" mode="indeterminate"></mat-progress-bar>
+        <ng-template #loadMoreButton>
             <button mat-raised-button color="primary" (click)="onLoadMoreBtnWasClicked()">Load more</button>
-        </div>
-    </ng-template>
+        </ng-template>
+    </div>
 </div>  
