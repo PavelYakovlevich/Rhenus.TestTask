@@ -1,8 +1,7 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthenticationConstants, authenticationHost } from '../constants/authentication-constants';
-import { Observable, catchError, throwError } from 'rxjs';
-import { ErrorHandlerService } from './error-handler.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +10,6 @@ export class AuthService {
 
   constructor(
     private readonly httpClient: HttpClient,
-    private readonly errorHandler: ErrorHandlerService
   ) { }
 
   login(email: string, password: string): Observable<any> {
@@ -19,18 +17,7 @@ export class AuthService {
 
     return this.httpClient.post(`${authenticationHost}/connect/token`, params.toString(), {
       headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-    }).pipe(
-      catchError(this.handleError.bind(this)),
-    );
-  }
-
-  private handleError(err: HttpErrorResponse, _: Observable<Object>) {
-    this.errorHandler.handleError({
-      status: err.status,
-      message: err.error?.error_description ?? "Login failed"
     });
-
-    return throwError(() => err);
   }
 
   private buildHttpParams(email: string, password: string): HttpParams {

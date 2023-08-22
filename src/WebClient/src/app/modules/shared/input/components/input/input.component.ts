@@ -52,7 +52,6 @@ export class InputComponent implements ControlValueAccessor, AfterContentInit  {
   }
 
   getErrorMessage(control: FormControl): string {
-    console.log(control)
     const firstError = Object.keys(control.errors!).pop()!
     return control.getError(firstError)
   }
