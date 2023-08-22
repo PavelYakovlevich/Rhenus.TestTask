@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { UserStorageContants } from '../constants/storage-constants';
 import { Subject } from 'rxjs';
-import { UserModel } from '../models/account';
+import { AccountModel } from '../models/account';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +9,17 @@ import { UserModel } from '../models/account';
 export class StorageService {
   userLoggedIn$: Subject<boolean> = new Subject() 
 
-  saveAccessToken(accessToken: string) {
+  saveTokens(accessToken: string, refreshToken: string) {
     sessionStorage.setItem(UserStorageContants.accessToken, accessToken);
+    sessionStorage.setItem(UserStorageContants.refreshToken, refreshToken);
+  }
+
+  getAccessToken(): string | null {
+    return sessionStorage.getItem(UserStorageContants.accessToken);
+  }
+
+  getRefreshToken(): string | null {
+    return sessionStorage.getItem(UserStorageContants.refreshToken);
   }
 
   saveUserId(id: string): void {
@@ -21,7 +30,7 @@ export class StorageService {
     return sessionStorage.getItem(UserStorageContants.userId);
   }
 
-  saveUser(user: UserModel) {
+  saveUser(user: AccountModel) {
     sessionStorage.setItem(UserStorageContants.user, JSON.stringify(user));
 
     this.userLoggedIn$.next(true);

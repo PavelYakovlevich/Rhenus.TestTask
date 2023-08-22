@@ -58,10 +58,10 @@ export class LoginFormComponent {
     return control.valid && control.touched;
   }
 
-  onSuccesfullLogin(loginResult: { access_token: string }) {
+  onSuccesfullLogin(loginResult: { access_token: string, refresh_token: string }) {
     const decodedJwt = getDecodedAccessToken(loginResult.access_token);
 
-    this.userStorageService.saveAccessToken(loginResult.access_token);
+    this.userStorageService.saveTokens(loginResult.access_token, loginResult.refresh_token);
     this.userStorageService.saveUserId(decodedJwt.sub);
 
     this.router.navigate(['']);

@@ -1,4 +1,4 @@
-import { NgModule, OnInit } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UsersDashboardComponent } from './components/users-dashboard/users-dashboard.component';
 import { UsersDashboardRoutingModule } from './users-dashboard-routing';

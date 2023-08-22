@@ -14,7 +14,7 @@ const routes: Routes = [
   },
   {
     path: "**", 
-    component: UsersDashboardComponent,
+    loadChildren: () => import('./modules/users-dashboard/users-dashboard.module').then(m => m.UsersDashboardModule),
     canActivate: [userAuthenticatedGuard],
   }
 ];

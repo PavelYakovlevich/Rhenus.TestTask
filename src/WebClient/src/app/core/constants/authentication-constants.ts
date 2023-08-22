@@ -4,7 +4,9 @@ export class AuthenticationConstants {
     // must be saved in a secure storage later
     public static readonly clientSecret = "secret";
 
-    public static readonly scope = "managementAPI";
+    public static readonly scope = "offline_access";
 
-    public static readonly grantType = "password";
+    public static readonly passwordGrantType = "password";
+    
+    public static readonly refreshTokenGrantType = "refresh_token";
 }
