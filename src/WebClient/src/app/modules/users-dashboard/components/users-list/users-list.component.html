@@ -14,7 +14,7 @@
                     </div>
                     
                     <div class="action-buttons-container">
-                        <button mat-icon-button color="primary" [routerLink]="account.id">
+                        <button mat-icon-button color="primary" (click)="onEditBtnWasClicked(account.id)">
                             <mat-icon>edit</mat-icon>
                         </button>
 

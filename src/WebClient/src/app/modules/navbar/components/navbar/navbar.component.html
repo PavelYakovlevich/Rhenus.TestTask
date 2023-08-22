@@ -7,7 +7,7 @@
 
     <ng-container *ngIf="storageService.user$ | async as user">
         <div class="navbar-button-container">
-            <button mat-icon-button aria-label="Create account button" color="primary">
+            <button mat-icon-button aria-label="Create account button" color="primary" (click)="onCreateUserBtnWasClicked()">
                 <mat-icon class="navbar-icon" color="account">person_add</mat-icon>
             </button>
 

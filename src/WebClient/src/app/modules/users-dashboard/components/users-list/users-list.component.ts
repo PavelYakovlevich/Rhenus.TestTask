@@ -1,7 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { BehaviorSubject, Subject, delay, finalize } from 'rxjs';
+import { OpenMode } from 'src/app/core/enums/user-page-open-modes';
 import { AccountModel } from 'src/app/core/models/account';
 import { AccountsService } from 'src/app/core/services/accounts.service';
 import { ErrorHandlerService } from 'src/app/core/services/error-handler.service';
@@ -28,6 +30,7 @@ export class UsersListComponent implements OnInit {
     private readonly accountsService: AccountsService,
     private readonly errorHandler: ErrorHandlerService,
     private readonly storageService: StorageService,
+    private readonly router: Router,
     public confirmationDialog: MatDialog
   ) {
   }
@@ -64,8 +67,12 @@ export class UsersListComponent implements OnInit {
     this.loadAccountsChunk();
   }
   
-  onEditUserBtnWasClicked(id: string) {
-  
+  onEditBtnWasClicked(id: string) {
+    this.router.navigate(['users', id], {
+      state: {
+        mode: OpenMode.Edit
+      }
+    })
   }
 
   private loadAccountsChunk() {
