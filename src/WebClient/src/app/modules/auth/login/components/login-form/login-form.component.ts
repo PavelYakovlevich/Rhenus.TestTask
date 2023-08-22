@@ -1,9 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, ChangeDetectionStrategy, ErrorHandler } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subject, finalize } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { ErrorHandlerService } from 'src/app/core/services/error-handler.service';
 import { StorageService } from 'src/app/core/services/storage.service';
 import { getDecodedAccessToken } from 'src/app/core/utils/jwt-utils';
 import { emailValidator, passwordValidator } from 'src/app/core/validators/validation';
@@ -22,7 +23,7 @@ export class LoginFormComponent {
     fb: FormBuilder,
     private readonly authService: AuthService,
     private readonly userStorageService: StorageService,
-    private readonly errorHandler: ErrorHandler,
+    private readonly errorHandler: ErrorHandlerService,
     private readonly router: Router
     ) {
     this.loginForm = fb.group({
@@ -67,6 +68,8 @@ export class LoginFormComponent {
   }
 
   handleError(err: HttpErrorResponse) {
+    console.log(err)
+
     this.errorHandler.handleError({
       status: err.status,
       message: err.error?.error_description ?? "Login failed"

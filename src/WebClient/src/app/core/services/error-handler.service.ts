@@ -16,6 +16,7 @@ export class ErrorHandlerService {
     {
       horizontalPosition: "center",
       verticalPosition: "top",
+      panelClass: 'error-box'
     });
   }
 }
