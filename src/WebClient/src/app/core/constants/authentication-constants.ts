@@ -8,5 +8,3 @@ export class AuthenticationConstants {
 
     public static readonly grantType = "password";
 }
-
-export const authenticationHost = "https://localhost:7088";

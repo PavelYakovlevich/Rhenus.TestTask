@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { UserStorageContants } from '../constants/storage-constants';
 import { Subject } from 'rxjs';
-import { UserModel } from '../models/user';
+import { UserModel } from '../models/account';
 
 @Injectable({
   providedIn: 'root'
@@ -25,5 +25,9 @@ export class StorageService {
     sessionStorage.setItem(UserStorageContants.user, JSON.stringify(user));
 
     this.userLoggedIn$.next(true);
+  }
+
+  clear() {
+    sessionStorage.clear();
   }
 }

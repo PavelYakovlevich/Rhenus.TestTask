@@ -1,4 +1,4 @@
 export interface ErrorModel {
-    status: number;
+    status?: number;
     message: string
 }

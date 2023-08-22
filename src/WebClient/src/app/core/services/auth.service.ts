@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AuthenticationConstants, authenticationHost } from '../constants/authentication-constants';
+import { AuthenticationConstants } from '../constants/authentication-constants';
 import { Observable, delay } from 'rxjs';
+import { authenticationHost } from '../constants/api-hosts';
 
 @Injectable({
   providedIn: 'root'
