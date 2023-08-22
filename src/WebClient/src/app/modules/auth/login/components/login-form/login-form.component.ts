@@ -56,6 +56,8 @@ export class LoginFormComponent {
     this.userStorageService.saveAccessToken(loginResult.access_token);
     this.userStorageService.saveUserId(decodedJwt.sub);
 
+    console.log('here')
+
     this.router.navigate(['']);
   }
 

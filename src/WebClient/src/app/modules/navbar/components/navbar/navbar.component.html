@@ -4,11 +4,13 @@
         
         <span class="spacer"></span>
 
-        <div class="navbar-button-container">
-            <button mat-icon-button aria-label="Account button" [matMenuTriggerFor]="menu">
-                <mat-icon color="primary">account_circle</mat-icon>
-            </button>
-        </div>
+        <ng-container *ngIf="storageService.userLoggedIn$ | async">
+            <div class="navbar-button-container">
+                <button mat-icon-button aria-label="Account button" [matMenuTriggerFor]="menu">
+                    <mat-icon color="primary">account_circle</mat-icon>
+                </button>
+            </div>
+        </ng-container>
 
         <mat-menu #menu="matMenu">
             <span mat-menu-item>User</span>

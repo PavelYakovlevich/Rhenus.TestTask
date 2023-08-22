@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { StorageService } from 'src/app/core/services/storage.service';
 
 @Component({
   selector: 'app-navbar',
@@ -7,5 +8,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavbarComponent {
-
+  constructor(
+    readonly storageService: StorageService
+  ) {}
 }

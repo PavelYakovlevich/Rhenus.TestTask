@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UsersDashboardComponent } from './modules/users-dashboard/components/users-dashboard/users-dashboard.component';
+import { userAuthenticatedGuard } from './core/guards/user-authenticated.guard';
 
 const routes: Routes = [
   {
@@ -13,8 +14,9 @@ const routes: Routes = [
   },
   {
     path: "**", 
-    component: UsersDashboardComponent
-  },
+    component: UsersDashboardComponent,
+    canActivate: [userAuthenticatedGuard],
+  }
 ];
 
 @NgModule({
