@@ -25,6 +25,7 @@ internal static class IdentityServerConfig
                 AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
                 
                 AllowAccessTokensViaBrowser = true,
+                AllowOfflineAccess = true,
 
                 // Must be stored in a secured storage
                 ClientSecrets =
@@ -34,7 +35,7 @@ internal static class IdentityServerConfig
                 
                 AllowedScopes = new List<string>
                 {
-                    "managementAPI"
+                    "managementAPI",
                 }
             }
         };

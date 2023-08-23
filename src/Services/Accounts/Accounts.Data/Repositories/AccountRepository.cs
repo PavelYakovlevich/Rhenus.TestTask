@@ -17,10 +17,18 @@ public class AccountRepository : IAccountRepository
         _context = context;
         _mapper = mapper;
     }
-    
+
+    public async Task<AccountModel?> ReadByIdAsync(Guid id)
+    {
+        var targetUser = await _context.Accounts.FirstOrDefaultAsync(user => user.Id == id);
+
+        return _mapper.Map<AccountModel>(targetUser);
+    }
+
     public async IAsyncEnumerable<AccountModel> ReadAsync(int skip, int count)
     {
-        var users = _context.Accounts.Skip(skip)
+        var users = _context.Accounts.OrderBy(account => account.Id)
+            .Skip(skip)
             .Take(count)
             .AsNoTracking();
         

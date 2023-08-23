@@ -4,6 +4,8 @@ namespace Accounts.Contract.Services;
 
 public interface IAccountService
 {
+    Task<AccountModel> ReadByIdAsync(Guid id);
+    
     IAsyncEnumerable<AccountModel> ReadAsync(int skip, int count);
 
     Task DeleteAsync(Guid id);

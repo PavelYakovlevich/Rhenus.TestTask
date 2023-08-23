@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Accounts.Contract.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -40,6 +39,14 @@ public class AccountsController : ControllerBase
         return NoContent();
     }
 
+    [HttpGet("{id:guid}")]
+    public async Task<IActionResult> GetUser([FromRoute] Guid id)
+    {
+        var user = await _service.ReadByIdAsync(id);
+
+        return Ok(_mapper.Map<Models.Account.AccountModel>(user));
+    }
+    
     [HttpGet]
     public async IAsyncEnumerable<Models.Account.AccountModel> GetUsers([FromQuery] AccountFilters filters)
     {

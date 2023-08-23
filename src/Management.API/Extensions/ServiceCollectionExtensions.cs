@@ -76,4 +76,19 @@ public static class ServiceCollectionExtensions
         builder.Services.AddValidatorsFromAssemblyContaining<AccountFiltersValidator>();
         builder.Services.AddFluentValidationAutoValidation();
     }
+    
+    public static void SetupCors(this WebApplicationBuilder builder)
+    {
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("OnlyFrontend",
+                optionsBuilder =>
+                {
+                    optionsBuilder.WithOrigins("http://localhost:4200")
+                        .AllowCredentials()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                });
+        });
+    }
 }

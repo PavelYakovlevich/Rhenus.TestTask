@@ -7,6 +7,7 @@ builder.Services.AddControllers();
 
 builder.SetupServices();
 builder.SetupDatabase();
+builder.SetupCors();
 builder.SetupModelsValidation();
 builder.SetupAuthentication();
 builder.SetupMapper();
@@ -14,6 +15,8 @@ builder.SetupMapper();
 var app = builder.Build();
 
 app.UseHttpsRedirection();
+
+app.UseCors("OnlyFrontend");
 
 app.UseExceptionHandler();
 

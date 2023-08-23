@@ -19,7 +19,18 @@ public class AccountService : IAccountService
         _userManager = userManager;
         _mapper = mapper;
     }
-    
+
+    public async Task<AccountModel> ReadByIdAsync(Guid id)
+    {
+        var targetUser = await _repository.ReadByIdAsync(id);
+        if (targetUser is null)
+        {
+            throw new NotFoundException($"User with id '{id}' was not found");
+        }
+
+        return targetUser;
+    }
+
     public IAsyncEnumerable<AccountModel> ReadAsync(int skip, int count)
     {
         return _repository.ReadAsync(skip, count);
