@@ -3,6 +3,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subject, finalize } from 'rxjs';
+import { AccountsService } from 'src/app/core/services/accounts.service';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { StorageService } from 'src/app/core/services/storage.service';
@@ -23,6 +24,7 @@ export class LoginFormComponent {
     fb: FormBuilder,
     private readonly authService: AuthService,
     private readonly userStorageService: StorageService,
+    private readonly accountsService: AccountsService,
     private readonly notificationService: NotificationService,
     private readonly router: Router
     ) {
@@ -64,7 +66,17 @@ export class LoginFormComponent {
     this.userStorageService.saveTokens(loginResult.access_token, loginResult.refresh_token);
     this.userStorageService.saveUserId(decodedJwt.sub);
 
-    this.router.navigate(['./users']);
+    const userId = this.userStorageService.getUserId()!;
+
+    console.log('ge', userId);
+
+    this.accountsService.getById(userId)
+    .subscribe({
+      next: (user) => {
+        this.userStorageService.saveUser(user);
+        this.router.navigate(['users']);
+      }
+    });
   }
 
   handleError(err: HttpErrorResponse) {

@@ -44,3 +44,10 @@
 .navbar-links {
     padding-left: 20px;
 }
+
+@media screen and (max-width: 300px) {
+    .navbar {
+        width: 100vw;
+        flex-direction: column;
+    }
+}

@@ -5,4 +5,13 @@
 
     display: flex;
     justify-content: center;
+    align-items: center;
+    
+    width: 100vw;
+}
+
+@media screen and (max-height: 650px) {
+    .context-box {
+        padding-top: 40px;
+    }
 }
