@@ -1,4 +1,20 @@
-/* You can add global styles to this file, and also import other style files */
-
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+::ng-deep {
+    .error-notification-box.mat-mdc-snack-bar-container .mdc-snackbar__surface {
+        background-color: rgb(255, 0, 0, 0.8) !important;
+    
+        .mdc-button__label {
+            color: white !important;
+        }
+    }
+
+    .success-notification-box.mat-mdc-snack-bar-container .mdc-snackbar__surface {
+        background-color: rgba(6, 180, 0, 0.8) !important;
+    
+        .mdc-button__label {
+            color: white !important;
+        }
+    }
+}

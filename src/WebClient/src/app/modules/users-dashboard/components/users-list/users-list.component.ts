@@ -6,7 +6,7 @@ import { BehaviorSubject, Subject, finalize } from 'rxjs';
 import { OpenMode } from 'src/app/core/constants/user-page-open-modes';
 import { AccountModel } from 'src/app/core/models/account';
 import { AccountsService } from 'src/app/core/services/accounts.service';
-import { ErrorHandlerService } from 'src/app/core/services/error-handler.service';
+import { NotificationService } from 'src/app/core/services/notification.service';
 import { StorageService } from 'src/app/core/services/storage.service';
 import { ConfirmationDialogComponent } from 'src/app/modules/shared/confirmation-dialog/components/confirmation-dialog/confirmation-dialog.component';
 
@@ -28,7 +28,7 @@ export class UsersListComponent implements OnInit {
 
   constructor(
     private readonly accountsService: AccountsService,
-    private readonly errorHandler: ErrorHandlerService,
+    private readonly errorHandler: NotificationService,
     private readonly storageService: StorageService,
     private readonly router: Router,
     public confirmationDialog: MatDialog

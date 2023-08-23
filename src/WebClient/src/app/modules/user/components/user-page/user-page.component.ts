@@ -4,9 +4,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, finalize } from 'rxjs';
 import { OpenMode } from 'src/app/core/constants/user-page-open-modes';
 import { AccountModel } from 'src/app/core/models/account';
+import { CreateAccountModel } from 'src/app/core/models/create-account';
 import { AccountsService } from 'src/app/core/services/accounts.service';
-import { ErrorHandlerService } from 'src/app/core/services/error-handler.service';
-import { birthdayValidator, lastNameValidator, nameValidator } from 'src/app/core/validators/validation';
+import { NotificationService } from 'src/app/core/services/notification.service';
+import { birthdayValidator, emailValidator, lastNameValidator, nameValidator, passwordValidator } from 'src/app/core/validators/validation';
 
 @Component({
   selector: 'app-user-page',
@@ -25,16 +26,12 @@ export class UserPageComponent implements OnInit {
     private readonly router: Router,
     private readonly route: ActivatedRoute,
     private readonly accountsService: AccountsService,
-    private readonly errorHandler: ErrorHandlerService,
+    private readonly notificationService: NotificationService,
     fb: FormBuilder
   ) {
-    this.setupPage();
+    this.setupPageMode();
 
-    this.userForm = fb.group({
-      name: new FormControl<string>('', nameValidator(50)),
-      lastName: new FormControl<string>('', lastNameValidator(50)),
-      birthday: new FormControl<string>('', birthdayValidator),
-    })
+    this.userForm = this.buildForm(fb);
   }
 
   ngOnInit(): void {
@@ -66,34 +63,74 @@ export class UserPageComponent implements OnInit {
   onActionBtnWasClicked() {
     this.requestInProgress$.next(true);
 
-    const user = this.buildUserModel();
-
-    const observable = this.buildActionObservable(user);
+    const action = this.buildActionObservable();
     
-    observable.pipe(
+    action.pipe(
       finalize(() => this.requestInProgress$.next(false))
     )
     .subscribe({
-      next: () => this.router.navigate(['/users']),
-      error: () => this.errorHandler.handleError({
+      next: () => {
+        this.notificationService.hadleSuccess("Success");
+        this.router.navigate(['/users']);
+      },
+      error: () => this.notificationService.handleError({
         message: "Something went wrong. Try again later"
       })
     })
   }
   
-  private buildActionObservable(user: AccountModel) {
-    // if (this.openMode === OpenMode.Edit) {
-      return this.accountsService.update(this.user!.id, user)
-    // }
+  get isInCreateMode(): boolean {
+    return this.openMode === OpenMode.Create;
   }
 
-  private buildUserModel(): AccountModel {
+  private buildForm(fb: FormBuilder): FormGroup {
+    const controls = {
+      name: new FormControl<string>('', nameValidator(50)),
+      lastName: new FormControl<string>('', lastNameValidator(50)),
+      birthday: new FormControl<string>('', birthdayValidator),
+    };
+
+    if (this.openMode === OpenMode.Create) {
+      return fb.group({
+        ...controls,
+        email: new FormControl<string>('', emailValidator),
+        password: new FormControl<string>('', passwordValidator),
+      });
+    }
+
+    return fb.group(controls);
+  }
+  
+  private buildActionObservable() {
+    const model = this.buildModel();
+
+    if (this.openMode === OpenMode.Edit) {
+      return this.accountsService.update(this.user!.id, model as AccountModel);
+    }
+
+    return this.accountsService.create(model as CreateAccountModel);
+  }
+
+  private buildModel(): AccountModel | CreateAccountModel {
     const name = this.getControlValue('name');
     const lastName = this.getControlValue('lastName');
     const birthday = this.getControlValue('birthday');
 
+    if (this.openMode === OpenMode.Edit) {
+      return {
+        id: this.user?.id ?? '',
+        name,
+        lastName,
+        birthday
+      }
+    }
+
+    const email = this.getControlValue('email');
+    const password = this.getControlValue('password');
+
     return {
-      id: this.user?.id ?? '',
+      email,
+      password,
       name,
       lastName,
       birthday
@@ -139,19 +176,18 @@ export class UserPageComponent implements OnInit {
   }
 
   private handlerError(_: any, id: string) {
-    this.errorHandler.handleError({
+    this.notificationService.handleError({
       message: `Can't load user with id '${id}'`
     });
 
     this.router.navigate(['users']);
   }
 
-  private setupPage() {
+  private setupPageMode() {
     const state = this.router.getCurrentNavigation()?.extras.state;
     
     if (!state) return;
 
     this.openMode = state["mode"];
-    if (this.openMode !== OpenMode.Edit) return;
   }
 }

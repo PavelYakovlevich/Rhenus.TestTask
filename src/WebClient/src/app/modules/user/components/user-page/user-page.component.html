@@ -8,6 +8,20 @@
 
         <mat-card-content class="user-data">
             <form [formGroup]="userForm" class="user-form">
+                <ng-container *ngIf="isInCreateMode">
+                    <app-input
+                        label="Email"
+                        placeholder="Enter email"
+                        formControlName="email">
+                    </app-input>
+
+                    <app-input
+                        label="Password"
+                        placeholder="Enter password"
+                        formControlName="password">
+                    </app-input>
+                </ng-container>
+
                 <app-input
                     label="Name"
                     placeholder="Enter your name"
@@ -37,7 +51,7 @@
         </mat-card-actions>
 
         <mat-card-footer>
-            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            <mat-progress-bar *ngIf="requestInProgress$ | async" mode="indeterminate"></mat-progress-bar>
         </mat-card-footer>
     </mat-card>
 </div>
