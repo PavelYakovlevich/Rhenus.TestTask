@@ -31,7 +31,22 @@ export class NavbarComponent implements OnInit {
       }
     })
   }
+
+  onProfileBtnWasClicked() {
+    const id = this.storageService.getUserId();
+
+    this.router.navigate(['users', id], {
+      state: {
+        mode: OpenMode.Edit
+      }
+    })
+  }
   
+  onLogoutBtnWasClicked() {
+    this.storageService.clear();
+
+    this.router.navigate(['auth/login']);
+  }
 
   private onAccountInfoLoaded(model: AccountModel) {
     this.storageService.saveUser(model);

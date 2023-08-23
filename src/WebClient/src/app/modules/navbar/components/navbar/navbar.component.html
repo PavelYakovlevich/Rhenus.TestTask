@@ -1,6 +1,6 @@
 <div class="navbar">
     <div class="navbar-links">
-        <span>Users management app</span>
+        <span class='navbar-link' routerLink='users'>Users management app</span>
     </div>
         
     <span class="spacer"></span>
@@ -17,8 +17,8 @@
         </div>
 
         <mat-menu #menu="matMenu">
-            <span mat-menu-item>Profile</span>
-            <button mat-menu-item>Log out</button>
+            <span mat-menu-item (click)="onProfileBtnWasClicked()">Profile</span>
+            <button mat-menu-item (click)="onLogoutBtnWasClicked()">Log out</button>
         </mat-menu>
     </ng-container>
 </div>
