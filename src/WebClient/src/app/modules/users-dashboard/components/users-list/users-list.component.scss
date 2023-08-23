@@ -1,5 +1,4 @@
 .acounts-list {
-    width: 50vh;
     height: 100%;
 }
 
@@ -44,4 +43,31 @@
     align-items: center;
 
     margin-right: 5px;
+}
+
+@media screen and (max-width: 600px) {
+    .acounts-list {
+        width: 100%;
+    }
+
+    ::ng-deep {
+        .mat-mdc-list-base {
+            width: 100%;
+        }
+    }
+}
+
+@media screen and (max-width: 380px) {
+    .account-box {
+        flex-direction: column;
+        justify-content: start;
+        align-items: start;
+        height: 100px;
+    }
+
+    ::ng-deep {
+        .mat-mdc-list-item {
+            height: auto !important;
+        }
+    }
 }
