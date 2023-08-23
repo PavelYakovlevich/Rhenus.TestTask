@@ -158,7 +158,7 @@ export class UserPageComponent implements OnInit {
   private updateForm(user: AccountModel) {
     this.setControlValue('name', user.name);
     this.setControlValue('lastName', user.lastName);
-    this.setControlValue('birthday', user.birthday?.toLocaleString() ?? '');
+    this.setControlValue('birthday', user.birthday?.toUTCString() ?? '');
   }
 
   private setControlValue(controlName: string, value: string) {

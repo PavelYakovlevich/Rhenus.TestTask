@@ -68,8 +68,6 @@ export class LoginFormComponent {
 
     const userId = this.userStorageService.getUserId()!;
 
-    console.log('ge', userId);
-
     this.accountsService.getById(userId)
     .subscribe({
       next: (user) => {
@@ -80,8 +78,6 @@ export class LoginFormComponent {
   }
 
   handleError(err: HttpErrorResponse) {
-    console.log(err)
-
     this.notificationService.handleError({
       status: err.status,
       message: err.error?.error_description ?? "Login failed"
