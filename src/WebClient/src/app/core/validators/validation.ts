@@ -58,3 +58,68 @@ export const emailValidator = function (control: AbstractControl): ValidationErr
 
     return errors;
 }
+
+export const nameValidator = (length: number) => {
+    const label = "Name";
+    return [notEmpty(label), onlyCharacters(label), maxLength(label, length)];
+}
+
+
+export const lastNameValidator = (length: number) => {
+    const label = "Last name";
+    return [notEmpty(label), onlyCharacters(label), maxLength(label, length)];
+}
+
+export const birthdayValidator = function (control: AbstractControl): ValidationErrors | null {
+    const value: string = control.value || '';
+
+    var date = Date.parse(value);
+    var now = Date.now();
+
+    if(date > now) {
+        return { 
+            birthday: `Birthday value must be in past`
+        };
+    }
+
+    return null;
+};
+
+
+const notEmpty = (label: string) => function (control: AbstractControl): ValidationErrors | null {
+    const value: string = control.value?.trim() || '';
+
+    if(value.length === 0) {
+        return { 
+            lastName: `${label} is empty`
+        };
+    }
+
+    return null;
+};
+
+const onlyCharacters = (label: string) => function (control: AbstractControl): ValidationErrors | null {
+    const value: string = control.value?.trim() || '';
+
+    const onlyCharacters = /^[A-Za-z]+$/g;
+
+    if (!onlyCharacters.test(value)) {
+        return { 
+            onlyCharacters: `${label} must consist of chars only` 
+        };
+    }
+
+    return null;
+};
+
+const maxLength = (label: string, maxLength: number) => function (control: AbstractControl): ValidationErrors | null {
+    const value: string = control.value?.trim() || '';
+
+    if(value.length > maxLength) {
+        return { 
+            name: `${label} must be maximum ${maxLength} characters long`
+        };
+    }
+
+    return null;
+};

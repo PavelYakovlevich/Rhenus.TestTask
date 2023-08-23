@@ -23,4 +23,8 @@ export class AccountsService {
   delete(id: string) {
     return this.httpClient.delete(`${usersAPIHost}/accounts/${id}`);
   }
+
+  update(id: string, user: AccountModel) {
+    return this.httpClient.put(`${usersAPIHost}/accounts/${id}`, user);
+  }
 }

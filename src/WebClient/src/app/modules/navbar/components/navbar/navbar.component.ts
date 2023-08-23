@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { OpenMode } from 'src/app/core/enums/user-page-open-modes';
+import { OpenMode } from 'src/app/core/constants/user-page-open-modes';
 import { AccountModel } from 'src/app/core/models/account';
 import { AccountsService } from 'src/app/core/services/accounts.service';
 import { ErrorHandlerService } from 'src/app/core/services/error-handler.service';

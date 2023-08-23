@@ -1,9 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Subject, delay, finalize } from 'rxjs';
-import { OpenMode } from 'src/app/core/enums/user-page-open-modes';
+import { BehaviorSubject, Subject, finalize } from 'rxjs';
+import { OpenMode } from 'src/app/core/constants/user-page-open-modes';
 import { AccountModel } from 'src/app/core/models/account';
 import { AccountsService } from 'src/app/core/services/accounts.service';
 import { ErrorHandlerService } from 'src/app/core/services/error-handler.service';
@@ -16,7 +16,7 @@ const userPerRequestCount = 10;
   selector: 'app-users-list',
   templateUrl: './users-list.component.html',
   styleUrls: ['./users-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Default
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UsersListComponent implements OnInit {
   accounts: AccountModel[] = [];

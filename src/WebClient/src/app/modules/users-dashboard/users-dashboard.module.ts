@@ -12,6 +12,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 
 import { CustomPipesModule } from 'src/app/core/pipes/custom-pipes.module';
 import { ConfirmationDialogModule } from '../shared/confirmation-dialog/confirmation-dialog.module';
+import { UserModule } from '../user/user.module';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { ConfirmationDialogModule } from '../shared/confirmation-dialog/confirma
     MatIconModule,
     MatDialogModule,
     ConfirmationDialogModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    UserModule
   ],
   exports: []
 })
